@@ -13,6 +13,9 @@ import {
   FormControl,
   ButtonToolbar
  } from "react-bootstrap";
+ 
+ import NotificationSystem from "react-notification-system";
+ import { style } from "variables/Variables.jsx";
  import history from "../../history";
  import firebase from "firebase";
 
@@ -33,6 +36,7 @@ class HeaderLinks extends Component {
     //this.state = {isLoggedIn: false};
 
     this.state = {
+      _notificationSystem: null,
       show: false,
       isLoggedIn: false,
       exists: false,
@@ -73,7 +77,9 @@ class HeaderLinks extends Component {
     this.setState({ show: true });
   }
 
-  handleLogoutClick(){console.log(this.props);
+  handleLogoutClick(){
+    this.setState({ _notificationSystem: this.refs.notificationSystem });      
+    var _notificationSystem = this.refs.notificationSystem;
     // Firebase auth signuot
     firebaseConf.auth().signOut().then(function() {
       // Sign-out successful.    
@@ -83,13 +89,20 @@ class HeaderLinks extends Component {
       //this.setState({ show: true });
       this.setState({isLoggedIn: false});
       this.setState({ show: true });
-      //window.location.href='/dashboard';
-      //$state.go("login");
-      //this.context.router.push('/dashboard');
-      //this.context.router.history.push('/dashboard');
-      //this.context.router.replaceWith('/dashboard');
-      history.push("/dashboard");
 
+      _notificationSystem.addNotification({
+        title: <span data-notify="icon" className="pe-7s" />,
+        message: (
+          <div>
+            <b>Your Acoount logout successfully</b>
+          </div>
+        ),
+        level: "info",
+        position: "tr",
+        autoDismiss: 5
+      });
+      
+      history.push("/dashboard");
     }.bind(this), function(error) {
       // An error happened.
       console.log(error);
@@ -99,14 +112,26 @@ class HeaderLinks extends Component {
 
   formSubmitted(event) {
     event.preventDefault();
-    console.log("email=======================>", event.target.email.value);
-    console.log("password=======================>", event.target.password.value);
     let email = event.target.email.value;
     let password = event.target.password.value;
-    console.log("login button called");
+
+    this.setState({ _notificationSystem: this.refs.notificationSystem });      
+    var _notificationSystem = this.refs.notificationSystem;
 
     if ( email !== 'admin-collective@gmail.com') {
-      this.setState({isLoggedIn: false});
+      this.setState({isLoggedIn: true});
+      
+      _notificationSystem.addNotification({
+        title: <span data-notify="icon" className="pe-7s" />,
+        message: (
+          <div>
+            <b>Login Failed!. You don't have access privilege</b>
+          </div>
+        ),
+        level: "error",
+        position: "tr",
+        autoDismiss: 5
+      });
       return false;
     }
       
@@ -130,14 +155,37 @@ class HeaderLinks extends Component {
       this.setState({ show: false });
       this.setState({isLoggedIn: true});
       // Success notification message
+      _notificationSystem.addNotification({
+        title: <span data-notify="icon" className="pe-7s" />,
+        message: (
+          <div>
+            <b>Welcome. Login Success</b>
+          </div>
+        ),
+        level: "info",
+        position: "tr",
+        autoDismiss: 5
+      });
+
       history.push("/dashboard");
 
     }.bind(this)).catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      //var errorCode = error.code;
+      //var errorMessage = error.message;
+      _notificationSystem.addNotification({
+        title: <span data-notify="icon" className="pe-7s" />,
+        message: (
+          <div>
+            <b>Failed!. Invalid email or Password</b>
+          </div>
+        ),
+        level: "error",
+        position: "tr",
+        autoDismiss: 5
+      });
       console.log("error message", error);
-      console.log("login failed");
+      //console.log("login failed");
     });
   }
 
@@ -162,6 +210,7 @@ class HeaderLinks extends Component {
     );
     return (
       <div>
+        <NotificationSystem ref="notificationSystem" style={style} />
         {/*<Nav>
           <NavItem eventKey={1} href="#">
             <i className="fa fa-dashboard" />
