@@ -141,7 +141,7 @@ class AddPoll extends Component {
             option: event.target.option1.value,
             description: event.target.description1.value,
             imgName: picNames[0],
-            url: event.target.weburl2.value,
+            url: event.target.weburl1.value,
             count: 0,
             users: []
           },
@@ -150,7 +150,7 @@ class AddPoll extends Component {
             option: event.target.option2.value,
             description: event.target.description2.value,
             imgName: picNames[1],
-            url: event.target.weburl3.value,
+            url: event.target.weburl2.value,
             count: 0,
             users: []
           },
@@ -159,7 +159,7 @@ class AddPoll extends Component {
             option: event.target.option3.value,
             description: event.target.description3.value,
             imgName: picNames[2],
-            url: event.target.weburl4.value,
+            url: event.target.weburl3.value,
             count: 0,
             users: []
           },
@@ -168,7 +168,7 @@ class AddPoll extends Component {
             option: event.target.option4.value,
             description: event.target.description4.value,
             imgName: picNames[3],
-            url: event.target.weburl5.value,
+            url: event.target.weburl4.value,
             count: 0,
             users: []
           },
