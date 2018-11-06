@@ -111,13 +111,13 @@ class PollDetails extends Component {
                         <td>URL</td>
                       </tr>
                       {pollData.map(function(obj, key){
-                        //let imageurl = 
+                        let option = 'option'+ (key+1);
                         return (
                           <tr key={key}>
                                 <td width="40%">{obj.option}</td>
                                 <td width="40%">{obj.description}</td>
-                                {/*<td><img src ={data +'.option' + key} width="25px" height="25px" /></td>*/}
-                                <td><img src ="https://firebasestorage.googleapis.com/v0/b/collectivegiving.appspot.com/o/images%2Fnoimage.png?alt=media&token=927389dc-6626-4283-bfe2-ca09b28156a3" height="30px" width="30px"/></td>
+                                <td><img src ={data[option]} width="25px" height="25px" /></td>
+                                {/*<td><img src ="https://firebasestorage.googleapis.com/v0/b/collectivegiving.appspot.com/o/images%2Fnoimage.png?alt=media&token=927389dc-6626-4283-bfe2-ca09b28156a3" height="30px" width="30px"/></td>*/}
                                 <td>{obj.url}</td>
                           </tr>
                         );

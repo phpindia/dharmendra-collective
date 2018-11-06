@@ -5,6 +5,8 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 import Card from "components/Card/Card.jsx";
 //import { pollsHeding, thArray, tdArray } from "variables/Variables.jsx";
+import NotificationSystem from "react-notification-system";
+import { style } from "variables/Variables.jsx";
 
 import firebaseConf from '../../config';
 var dateFormat = require('dateformat');
